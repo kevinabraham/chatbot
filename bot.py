@@ -5,6 +5,32 @@ import string # to process standard python strings
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+	return 'Hello, World!'
+
+@app.route('/talk/<text>')
+def talk(text):
+	user_response=text
+	user_response=user_response.lower()
+	if(user_response!='bye'):
+		if(user_response=='thanks' or user_response=='thank you'):
+			flag=False
+			return ('ROBO: You are welcome!')
+		else:
+			if(greeting(user_response)!=None):
+				return ('ROBO: '+greeting(user_response))
+			else:
+				response_msg = response(user_response)
+				sent_tokens.remove(user_response)
+				return response_msg
+	else:
+		flag=False
+		return 'ROBO: Bye! Take care'
 
 f=open('chatbot.txt', 'r', errors='ignore')
 
@@ -65,20 +91,21 @@ def response(user_response):
 flag=True
 print('ROBO: My name is ROBO. I will answer your queries about Chatbots. If you want to exit, type Bye!')
 
-while(flag==True):
-	user_response=input()
-	user_response=user_response.lower()
-	if(user_response!='bye'):
-		if(user_response=='thanks' or user_response=='thank you'):
-			flag=False
-			print('ROBO: You are welcome!')
-		else:
-			if(greeting(user_response)!=None):
-				print('ROBO: '+greeting(user_response))
-			else:
-				print('ROBO:', end='')
-				print(response(user_response))
-				sent_tokens.remove(user_response)
-	else:
-		flag=False
-		print('ROBO: Bye! Take care')
+# while(flag==True):
+	# print('hello')
+	# user_response=input()
+	# user_response=user_response.lower()
+	# if(user_response!='bye'):
+	# 	if(user_response=='thanks' or user_response=='thank you'):
+	# 		flag=False
+	# 		print('ROBO: You are welcome!')
+	# 	else:
+	# 		if(greeting(user_response)!=None):
+	# 			print('ROBO: '+greeting(user_response))
+	# 		else:
+	# 			print('ROBO:', end='')
+	# 			print(response(user_response))
+	# 			sent_tokens.remove(user_response)
+	# else:
+	# 	flag=False
+	# 	print('ROBO: Bye! Take care')
