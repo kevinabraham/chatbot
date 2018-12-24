@@ -6,6 +6,7 @@ import string # to process standard python strings
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from flask import Flask
+from flask import render_template
 
 app = Flask(__name__)
 
@@ -20,17 +21,18 @@ def talk(text):
 	if(user_response!='bye'):
 		if(user_response=='thanks' or user_response=='thank you'):
 			flag=False
-			return ('ROBO: You are welcome!')
+			response_msg='ROBO: You are welcome!'
 		else:
 			if(greeting(user_response)!=None):
-				return ('ROBO: '+greeting(user_response))
+				response_msg='ROBO: '+greeting(user_response)
 			else:
 				response_msg = response(user_response)
 				sent_tokens.remove(user_response)
-				return response_msg
 	else:
 		flag=False
-		return 'ROBO: Bye! Take care'
+		response_msg='ROBO: Bye! Take care'
+
+	return render_template('index.html', r=response_msg)
 
 f=open('chatbot.txt', 'r', errors='ignore')
 
