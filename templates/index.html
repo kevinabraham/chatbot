@@ -1,10 +1,21 @@
-<!doctype html>
-<title>Chatbot</title>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chatbot</title>
+</head>
+<body>
+	Hello Helloo!
 
-Hello Helloo!
+	{% for message in r %}
+		<p {% if message[1]=='user'%} align='right' {% endif %}>
+			{{message[0]}}
+		</p>
+	{% endfor %}
+	<form method="POST">
+		<input type="text" name="userinput">
+		<button type="submit">Shoot</button>
+	</form>
+</body>
+</html>
 
-{% for message in r %}
-	<p {% if message[1]=='user'%} align='right' {% endif %}>
-		{{message[0]}}
-	</p>
-{% endfor %}
+
