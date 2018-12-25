@@ -2,4 +2,9 @@
 <title>Chatbot</title>
 
 Hello Helloo!
-{{ r }}
+
+{% for message in r %}
+	<p {% if message[1]=='user'%} align='right' {% endif %}>
+		{{message[0]}}
+	</p>
+{% endfor %}

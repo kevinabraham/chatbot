@@ -14,9 +14,12 @@ app = Flask(__name__)
 def hello_world():
 	return 'Hello, World!'
 
+messages = []
+
 @app.route('/talk/<text>')
 def talk(text):
 	user_response=text
+	messages.append((user_response, 'user'))
 	user_response=user_response.lower()
 	if(user_response!='bye'):
 		if(user_response=='thanks' or user_response=='thank you'):
@@ -31,8 +34,9 @@ def talk(text):
 	else:
 		flag=False
 		response_msg='ROBO: Bye! Take care'
+	messages.append((response_msg, 'bot'))
 
-	return render_template('index.html', r=response_msg)
+	return render_template('index.html', r=messages)
 
 f=open('chatbot.txt', 'r', errors='ignore')
 
