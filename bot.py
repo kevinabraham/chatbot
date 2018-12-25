@@ -1,12 +1,13 @@
 import nltk
 import numpy as np
 import random
+import requests
 import string # to process standard python strings
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template, request
+
 
 app = Flask(__name__)
 
@@ -16,25 +17,26 @@ def hello_world():
 
 messages = []
 
-@app.route('/talk/<text>')
+@app.route('/talk/<text>', methods=['GET', 'POST'])
 def talk(text):
-	user_response=text
-	messages.append((user_response, 'user'))
-	user_response=user_response.lower()
-	if(user_response!='bye'):
-		if(user_response=='thanks' or user_response=='thank you'):
-			flag=False
-			response_msg='ROBO: You are welcome!'
-		else:
-			if(greeting(user_response)!=None):
-				response_msg='ROBO: '+greeting(user_response)
+	if request.method=='POST':
+		user_response=request.form['userinput']# if request.form['userinput'] else 'hi'
+		messages.append((user_response, 'user'))
+		user_response=user_response.lower()
+		if(user_response!='bye'):
+			if(user_response=='thanks' or user_response=='thank you'):
+				flag=False
+				response_msg='ROBO: You are welcome!'
 			else:
-				response_msg = response(user_response)
-				sent_tokens.remove(user_response)
-	else:
-		flag=False
-		response_msg='ROBO: Bye! Take care'
-	messages.append((response_msg, 'bot'))
+				if(greeting(user_response)!=None):
+					response_msg='ROBO: '+greeting(user_response)
+				else:
+					response_msg = response(user_response)
+					sent_tokens.remove(user_response)
+		else:
+			flag=False
+			response_msg='ROBO: Bye! Take care'
+		messages.append((response_msg, 'bot'))
 
 	return render_template('index.html', r=messages)
 
