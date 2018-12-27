@@ -17,10 +17,10 @@ def hello_world():
 
 messages = []
 
-@app.route('/talk/<text>', methods=['GET', 'POST'])
-def talk(text):
+@app.route('/talk/', methods=['GET', 'POST'])
+def talk():
 	if request.method=='POST':
-		user_response=request.form['userinput']# if request.form['userinput'] else 'hi'
+		user_response=request.form['userinput']
 		messages.append((user_response, 'user'))
 		user_response=user_response.lower()
 		if(user_response!='bye'):
