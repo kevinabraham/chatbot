@@ -15,11 +15,13 @@
 	<title>Chatbot</title>
 </head>
 <body>
-	<div class="container">
-		Hello Helloo!
-
+	<div class="jumbotron">
+		<p class="lead">Chatbot welcomes you</p>
+	</div>
+	<div class="container pre-scrollable">
 		{% for message in r %}
-			<p {% if message[1]=='user'%} align='right' {% endif %}>
+			<p {% if message[1]=='user'%} align='left' class="alert alert-success" 
+			{% else %} align='right' class="alert alert-light" {% endif %}>
 				{{message[0]}}
 			</p>
 		{% endfor %}
