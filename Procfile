@@ -1,2 +1,2 @@
-export FLASK_APP=bot.py
+release: export FLASK_APP=bot.py
 web: flask run
