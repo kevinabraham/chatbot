@@ -1,6 +1,5 @@
 nltk
 numpy
-random
 requests
 string
 
