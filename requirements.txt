@@ -1,3 +1,9 @@
 nltk
 numpy
+random
+requests
+string
+
+TfidfVectorizer
+cosine_similarity
 flask
