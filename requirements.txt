@@ -1,8 +1,5 @@
 nltk
 numpy
 requests
-string
-
-TfidfVectorizer
-cosine_similarity
+scikit-learn
 flask
