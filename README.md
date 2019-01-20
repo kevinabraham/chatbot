@@ -1,3 +1,6 @@
+Start chatting with the chatbot at
+http://kbot.herokuapp.com/talk/
+
 Start the chatbot
 flask run
 
